@@ -13,6 +13,8 @@ $db->bind(':email', $email);
 $db->bind(':password', $password);
 
 if ($db->execute()) {
+    // Logowanie operacji rejestracji administratora
+    $db->logActivity($_SESSION['admin_id'], 'Rejestracja administratora');
     echo "Administrator został dodany pomyślnie!";
 } else {
     echo "Błąd: " . $db->getError();

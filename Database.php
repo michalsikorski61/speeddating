@@ -7,7 +7,7 @@ class Database {
     public function __construct() {
         $config = require 'dbconfig.php';
         $db = $config['database'];
-        
+
         $dsn = "mysql:host={$db['host']};dbname={$db['name']};charset=utf8mb4";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -70,6 +70,22 @@ class Database {
 
     public function getError() {
         return $this->error;
+    }
+
+    // Funkcja do logowania operacji
+    public function logActivity($user_id, $action) {
+        // Sprawdzenie, czy user_id istnieje w tabeli users
+        $this->query("SELECT id FROM users WHERE id = :user_id");
+        $this->bind(':user_id', $user_id);
+        $user = $this->single();
+        if ($user) {
+            $this->query("INSERT INTO logs (user_id, action) VALUES (:user_id, :action)");
+            $this->bind(':user_id', $user_id);
+            $this->bind(':action', $action);
+            $this->execute();
+        } else {
+            echo "Błąd: Nieprawidłowy user_id.";
+        }
     }
 }
 ?>

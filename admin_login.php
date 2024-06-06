@@ -16,6 +16,7 @@
         <br>
         <input type="submit" value="Zaloguj">
     </form>
+    <a href="index.php">Logowanie Użytkownika</a>
     </div>
 </body>
 </html>

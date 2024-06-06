@@ -17,6 +17,8 @@ $db->bind(':password', $password);
 $db->bind(':event_id', $event_id);
 
 if ($db->execute()) {
+    // Logowanie operacji rejestracji
+    $db->logActivity($db->lastInsertId(), 'Rejestracja użytkownika');
     echo "Rejestracja zakończona sukcesem!";
 } else {
     echo "Błąd: " . $db->getError();
