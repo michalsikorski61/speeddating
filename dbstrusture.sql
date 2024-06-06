@@ -21,3 +21,13 @@ CREATE TABLE matches (
     user1_id INT,
     user2_id INT
 );
+
+ALTER TABLE users ADD COLUMN password VARCHAR(255);
+
+CREATE TABLE choices (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    choice_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (choice_id) REFERENCES users(id)
+);
