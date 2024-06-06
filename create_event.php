@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Stwórz wydarzenie</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Stwórz wydarzenie</h1>
     <form action="create_event_action.php" method="post">
         <label for="name">Nazwa wydarzenia:</label>
@@ -14,5 +16,6 @@
         <br>
         <input type="submit" value="Stwórz">
     </form>
+    </div>
 </body>
 </html>

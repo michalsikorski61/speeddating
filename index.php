@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Speed Dating</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Speed Dating</h1>
     <h2>Logowanie Użytkownika</h2>
     <form action="login_user.php" method="post">
@@ -18,5 +20,6 @@
     <a href="register.php">Rejestracja</a>
     <br>
     <a href="admin_login.php">Logowanie Administratora</a>
+    </div>
 </body>
 </html>

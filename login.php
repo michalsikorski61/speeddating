@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Logowanie</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Logowanie</h1>
     <form action="login_user.php" method="post">
         <label for="email">Email:</label>
@@ -14,5 +16,6 @@
         <br>
         <input type="submit" value="Zaloguj">
     </form>
+    </div>
 </body>
 </html>

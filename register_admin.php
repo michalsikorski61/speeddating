@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Rejestracja Administratora</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Rejestracja Administratora</h1>
     <form action="register_admin_action.php" method="post">
         <label for="name">Imię:</label>
@@ -17,5 +19,6 @@
         <br>
         <input type="submit" value="Zarejestruj">
     </form>
+    </div>
 </body>
 </html>

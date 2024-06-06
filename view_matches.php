@@ -22,8 +22,10 @@ $matches = $db->resultset();
 <html>
 <head>
     <title>Podgląd Par</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Podgląd Par</h1>
     <ul>
         <?php foreach ($matches as $match): ?>
@@ -39,5 +41,6 @@ $matches = $db->resultset();
         <?php endforeach; ?>
     </ul>
     <a href="admin_panel.php">Wróć</a>
+    </div>
 </body>
 </html>

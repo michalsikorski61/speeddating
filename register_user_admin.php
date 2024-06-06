@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Rejestracja Użytkownika</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Rejestracja Użytkownika</h1>
     <form action="register_user_admin_action.php" method="post">
         <label for="name">Imię:</label>
@@ -33,5 +35,6 @@
         <br>
         <input type="submit" value="Zarejestruj">
     </form>
+    </div>
 </body>
 </html>
