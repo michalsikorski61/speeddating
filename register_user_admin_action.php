@@ -22,4 +22,4 @@ if ($db->execute()) {
     echo "Błąd: " . $db->getError();
 }
 ?>
-<a href="index.php">Wróć</a>
+<a href="admin_panel.php">Wróć</a>

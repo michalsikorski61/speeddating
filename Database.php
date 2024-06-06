@@ -67,5 +67,9 @@ class Database {
     public function lastInsertId() {
         return $this->pdo->lastInsertId();
     }
+
+    public function getError() {
+        return $this->error;
+    }
 }
 ?>

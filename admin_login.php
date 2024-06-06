@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Speed Dating</title>
+    <title>Logowanie Administratora</title>
 </head>
 <body>
-    <h1>Speed Dating</h1>
-    <h2>Logowanie Użytkownika</h2>
-    <form action="login_user.php" method="post">
+    <h1>Logowanie Administratora</h1>
+    <form action="login_admin.php" method="post">
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required>
         <br>
@@ -15,8 +14,5 @@
         <br>
         <input type="submit" value="Zaloguj">
     </form>
-    <a href="register.php">Rejestracja</a>
-    <br>
-    <a href="admin_login.php">Logowanie Administratora</a>
 </body>
 </html>

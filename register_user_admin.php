@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rejestracja</title>
+    <title>Rejestracja Użytkownika</title>
 </head>
 <body>
-    <h1>Rejestracja</h1>
-    <form action="register_user.php" method="post">
+    <h1>Rejestracja Użytkownika</h1>
+    <form action="register_user_admin_action.php" method="post">
         <label for="name">Imię:</label>
         <input type="text" name="name" id="name" required>
         <br>
