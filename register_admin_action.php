@@ -1,4 +1,5 @@
 <?php
+session_start(); // Uruchomienie sesji na początku pliku
 require 'Database.php';
 
 $name = $_POST['name'];
@@ -13,11 +14,14 @@ $db->bind(':email', $email);
 $db->bind(':password', $password);
 
 if ($db->execute()) {
-    // Logowanie operacji rejestracji administratora
-    $db->logActivity($_SESSION['admin_id'], 'Rejestracja administratora');
+    // Sprawdzenie, czy zmienna sesji admin_id jest ustawiona
+    if (isset($_SESSION['admin_id'])) {
+        // Logowanie operacji rejestracji administratora
+        $db->logActivity($_SESSION['admin_id'], 'Rejestracja administratora');
+    }
     echo "Administrator został dodany pomyślnie!";
 } else {
-    echo "Błąd: " . $db->getError();
+    echo "Wystąpił błąd podczas dodawania administratora. Spróbuj ponownie później.";
 }
 ?>
 <a href="admin_panel.php">Wróć</a>
