@@ -1,3 +1,12 @@
+<?php
+require 'config.php';
+// Sprawdzenie, czy użytkownik jest zalogowany jako admin lub user
+if (isset($_SESSION['admin_id'])) {
+    // Przekierowanie na stronę index.php, jeśli nie jest zalogowany
+    header('Location: admin_panel.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>

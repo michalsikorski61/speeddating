@@ -1,4 +1,9 @@
 <?php
+require 'config.php';
+// Reszta kodu
+?>
+
+<?php
 require 'Database.php';
 
 $event_id = $_GET['event_id'];

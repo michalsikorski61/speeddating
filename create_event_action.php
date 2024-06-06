@@ -1,4 +1,9 @@
 <?php
+require 'config.php';
+// Reszta kodu
+?>
+
+<?php
 require 'Database.php';
 
 $name = $_POST['name'];

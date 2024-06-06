@@ -1,3 +1,7 @@
+<?php
+require 'config.php';
+// Reszta kodu
+?>
 <!DOCTYPE html>
 <html>
 <head>

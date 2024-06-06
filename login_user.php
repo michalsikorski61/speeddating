@@ -1,9 +1,13 @@
 <?php
-session_start();
-require 'Database.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+// Używamy require_once zamiast require
+require_once 'Database.php';
+
+$email = trim($_POST['email']);
+$password = trim($_POST['password']);
 
 $db = new Database();
 
@@ -16,8 +20,35 @@ if ($user && password_verify($password, $user['password'])) {
     // Logowanie operacji logowania
     $db->logActivity($user['id'], 'Logowanie użytkownika');
     header('Location: user_panel.php');
+    exit;
 } else {
-    echo "Niepoprawny email lub hasło.";
+    // Logowanie nieudanego logowania
+    $db->logFailedLogin($email);
+    $error_message = "Niepoprawny email lub hasło. Spróbuj ponownie.";
 }
 ?>
-<a href="index.php">Wróć</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logowanie</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Logowanie</h1>
+        <form action="login_user.php" method="post">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+            <br>
+            <label for="password">Hasło:</label>
+            <input type="password" name="password" id="password" required>
+            <br>
+            <input type="submit" value="Zaloguj">
+        </form>
+        <?php if (isset($error_message)): ?>
+            <div class="error-message">
+                <p><?php echo $error_message; ?></p>
+                <img src="https://media.tenor.com/pl/view/alert-frog-gif-15005995807871958954.gif" alt="Alert Frog GIF">
+            </div>
+        <?php endif; ?>
+        <a href="index.php">Wróć

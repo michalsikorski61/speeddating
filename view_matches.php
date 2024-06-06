@@ -1,4 +1,9 @@
 <?php
+require 'config.php';
+// Reszta kodu
+?>
+
+<?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     header('Location: admin_login.php');
@@ -26,21 +31,21 @@ $matches = $db->resultset();
 </head>
 <body>
     <div class="container">
-    <h1>Podgląd Par</h1>
-    <ul>
-        <?php foreach ($matches as $match): ?>
-            <?php
-            $db->query("SELECT name,email FROM users WHERE id = :id");
-            $db->bind(':id', $match['user1_id']);
-            $user1 = $db->single();
-            $db->query("SELECT name,email FROM users WHERE id = :id");
-            $db->bind(':id', $match['user2_id']);
-            $user2 = $db->single();
-            ?>
-            <li><?php echo $user1['name'].' '. $user1['email']; ?> i <?php echo $user2['name'].' '.$user2['email']; ?></li>
-        <?php endforeach; ?>
-    </ul>
-    <a href="admin_panel.php">Wróć</a>
+        <h1>Podgląd Par</h1>
+        <ul>
+            <?php foreach ($matches as $match): ?>
+                <?php
+                $db->query("SELECT name FROM users WHERE id = :id");
+                $db->bind(':id', $match['user1_id']);
+                $user1 = $db->single();
+                $db->query("SELECT name FROM users WHERE id = :id");
+                $db->bind(':id', $match['user2_id']);
+                $user2 = $db->single();
+                ?>
+                <li><?php echo htmlspecialchars($user1['name'], ENT_QUOTES, 'UTF-8'); ?> i <?php echo htmlspecialchars($user2['name'], ENT_QUOTES, 'UTF-8'); ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <a href="admin_panel.php">Wróć</a>
     </div>
 </body>
 </html>

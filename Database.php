@@ -1,4 +1,6 @@
 <?php
+require 'config.php';
+
 class Database {
     private $pdo;
     private $error;
@@ -74,18 +76,21 @@ class Database {
 
     // Funkcja do logowania operacji
     public function logActivity($user_id, $action) {
-        // Sprawdzenie, czy user_id istnieje w tabeli users
-        $this->query("SELECT id FROM users WHERE id = :user_id");
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $this->query("INSERT INTO logs (user_id, action, ip_address) VALUES (:user_id, :action, :ip_address)");
         $this->bind(':user_id', $user_id);
-        $user = $this->single();
-        if ($user) {
-            $this->query("INSERT INTO logs (user_id, action) VALUES (:user_id, :action)");
-            $this->bind(':user_id', $user_id);
-            $this->bind(':action', $action);
-            $this->execute();
-        } else {
-            echo "Błąd: Nieprawidłowy user_id.";
-        }
+        $this->bind(':action', $action);
+        $this->bind(':ip_address', $ip_address);
+        $this->execute();
+    }
+
+    // Funkcja do logowania nieudanego logowania
+    public function logFailedLogin($email) {
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $this->query("INSERT INTO logs (user_id, action, ip_address) VALUES (NULL, :action, :ip_address)");
+        $this->bind(':action', "Nieudane logowanie - Email: $email");
+        $this->bind(':ip_address', $ip_address);
+        $this->execute();
     }
 }
 ?>

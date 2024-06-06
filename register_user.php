@@ -1,11 +1,21 @@
 <?php
+require 'config.php';
+// Reszta kodu
+?>
+
+<?php
 require 'Database.php';
 
-$name = $_POST['name'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
+$name = trim($_POST['name']);
+$email = trim($_POST['email']);
+$phone = trim($_POST['phone']);
 $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 $event_id = $_POST['event_id'];
+
+// Walidacja danych wejściowych
+if (empty($name) || empty($email) || empty($phone) || empty($_POST['password']) || empty($event_id)) {
+    die("Wszystkie pola są wymagane.");
+}
 
 $db = new Database();
 
@@ -21,7 +31,7 @@ if ($db->execute()) {
     $db->logActivity($db->lastInsertId(), 'Rejestracja użytkownika');
     echo "Rejestracja zakończona sukcesem!";
 } else {
-    echo "Błąd: " . $db->getError();
+    echo "Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.";
 }
 ?>
 <a href="index.php">Wróć</a>

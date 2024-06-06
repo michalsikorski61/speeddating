@@ -1,4 +1,9 @@
 <?php
+require 'config.php';
+// Reszta kodu
+?>
+
+<?php
 session_start();
 require 'Database.php';
 

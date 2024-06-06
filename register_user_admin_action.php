@@ -1,4 +1,11 @@
 <?php
+require 'config.php';
+session_start();
+
+
+?>
+
+<?php
 require 'Database.php';
 
 $name = $_POST['name'];

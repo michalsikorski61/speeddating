@@ -1,15 +1,12 @@
 <?php
-session_start();
-if (isset($_SESSION['admin_id'])) {
-    header('Location: admin_panel.php');
-    exit;
-}else{
+require 'config.php';
+// Reszta kodu
+?>
 
-if (isset($_SESSION['user_id'])) {
-    header('Location: user_panel.php');
-    exit;
-}
-}
+<?php
+session_start();
+
+
 ?>
 <!DOCTYPE html>
 <html>
