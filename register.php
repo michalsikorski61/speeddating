@@ -8,6 +8,18 @@
     <div class="container">
     <h1>Rejestracja</h1>
     <form action="register_user.php" method="post">
+    <select name="event_id" id="event_id" required>
+            <?php
+            require 'Database.php';
+            $db = new Database();
+            $db->query("SELECT id, name FROM events");
+            $events = $db->resultset();
+            foreach ($events as $event) {
+                echo "<option value='" . $event['id'] . "'>" . $event['name'] . "</option>";
+            }
+            ?>
+        </select>
+        <br>
         <label for="name">Imię:</label>
         <input type="text" name="name" id="name" required>
         <br>
@@ -21,18 +33,7 @@
         <input type="password" name="password" id="password" required>
         <br>
         <label for="event_id">Wybierz wydarzenie:</label>
-        <select name="event_id" id="event_id" required>
-            <?php
-            require 'Database.php';
-            $db = new Database();
-            $db->query("SELECT id, name FROM events");
-            $events = $db->resultset();
-            foreach ($events as $event) {
-                echo "<option value='" . $event['id'] . "'>" . $event['name'] . "</option>";
-            }
-            ?>
-        </select>
-        <br>
+        
         <input type="submit" value="Zarejestruj">
     </form>
     </div>
