@@ -3,7 +3,7 @@ require 'config.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-require 'Database.php';
+require_once 'Database.php';
 
 $db = new Database();
 
@@ -33,7 +33,7 @@ if (!isset($_SESSION['admin_id'])) {
     <form action="register_user_admin_action.php" method="post">
     <select name="event_id" id="event_id" required>
             <?php
-            require 'Database.php';
+            
             $db = new Database();
             $db->query("SELECT id, name FROM events");
             $events = $db->resultset();

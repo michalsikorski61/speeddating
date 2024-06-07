@@ -28,6 +28,7 @@ if (!isset($_SESSION['admin_id'])) {
         <a href="view_matches.php">Podgląd par</a><br>
         <a href="register_user_admin.php">Rejestracja użytkownika</a><br>
         <a href="register_admin.php">Rejestracja administratora</a><br>
+        <a href="create_event.php">Stwórz wydarzenie</a><br>
         <a href="logout.php">Wyloguj</a>
     </div>
 </body>
