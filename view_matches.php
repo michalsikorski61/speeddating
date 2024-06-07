@@ -6,8 +6,12 @@ require 'config.php';
 <?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: admin_login.php');
-    exit;
+    
+        echo("Tutaj cię nie mogę wpuścić. Wróć na stronę główną.");
+        echo "<a href='index.php'>Wróć</a>";
+        $db->logActivity($db->lastInsertId(), 'Ktoś próbował wejść na stronę view_matches.php bez  logowania.');
+        exit;
+    
 }
 
 require 'Database.php';

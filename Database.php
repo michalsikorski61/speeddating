@@ -1,10 +1,8 @@
 <?php
-require 'config.php';
-
 class Database {
     private $pdo;
-    private $error;
     private $stmt;
+    private $error;
 
     public function __construct() {
         $config = require 'dbconfig.php';
@@ -21,7 +19,7 @@ class Database {
             $this->pdo = new PDO($dsn, $db['username'], $db['password'], $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            echo $this->error;
+            echo 'Błąd połączenia: ' . $this->error;
         }
     }
 
@@ -49,7 +47,13 @@ class Database {
     }
 
     public function execute() {
-        return $this->stmt->execute();
+        try {
+            return $this->stmt->execute();
+        } catch (PDOException $e) {
+            $this->error = $e->getMessage();
+            echo 'Błąd wykonania: ' . $this->error;
+            return false;
+        }
     }
 
     public function resultset() {
@@ -78,10 +82,15 @@ class Database {
     public function logActivity($user_id, $action) {
         $ip_address = $_SERVER['REMOTE_ADDR'];
         $this->query("INSERT INTO logs (user_id, action, ip_address) VALUES (:user_id, :action, :ip_address)");
-        $this->bind(':user_id', $user_id);
+        $this->bind(':user_id', $user_id ? $user_id : null);
         $this->bind(':action', $action);
         $this->bind(':ip_address', $ip_address);
-        $this->execute();
+
+        if (!$this->execute()) {
+            echo 'Błąd logowania aktywności: ' . $this->getError();
+        } else {
+            echo 'Aktywność zalogowana pomyślnie.';
+        }
     }
 
     // Funkcja do logowania nieudanego logowania
@@ -90,7 +99,12 @@ class Database {
         $this->query("INSERT INTO logs (user_id, action, ip_address) VALUES (NULL, :action, :ip_address)");
         $this->bind(':action', "Nieudane logowanie - Email: $email");
         $this->bind(':ip_address', $ip_address);
-        $this->execute();
+
+        if (!$this->execute()) {
+            echo 'Błąd logowania nieudanego logowania: ' . $this->getError();
+        } else {
+            echo 'Nieudane logowanie zalogowane pomyślnie.';
+        }
     }
 }
 ?>

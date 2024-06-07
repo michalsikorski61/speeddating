@@ -1,6 +1,13 @@
 <?php
 require 'config.php';
-// Reszta kodu
+
+if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo("Tutaj cię nie mogę wpuścić. Wróć na stronę główną.");
+    echo "<a href='index.php'>Wróć</a>";
+    $db->logActivity($db->lastInsertId(), 'Ktoś próbował wejść na stronę register_user.php bez wysłania formularza.');
+    exit;
+
+}
 ?>
 
 <?php

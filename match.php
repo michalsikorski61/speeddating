@@ -1,6 +1,11 @@
 <?php
 require 'config.php';
-// Reszta kodu
+
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['user_id'])) {
+    // Przekierowanie na stronę index.php, jeśli nie jest zalogowany
+    header('Location: index.php');
+    exit;
+}
 ?>
 
 <?php

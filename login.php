@@ -1,6 +1,10 @@
 <?php
 require 'config.php';
-// Reszta kodu
+// przekierowanie do panelu użytkownika, jeśli jest zalogowany
+if (isset($_SESSION['user_id'])) {
+    header('Location: user_panel.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

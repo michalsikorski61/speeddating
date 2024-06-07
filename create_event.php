@@ -1,24 +1,23 @@
 <?php
 require 'config.php';
-// Sprawdzenie, czy użytkownik jest zalogowany jako admin lub user
-if (!isset($_SESSION['admin_id']) && !isset($_SESSION['user_id'])) {
-    // Przekierowanie na stronę index.php, jeśli nie jest zalogowany
-    header('Location: index.php');
-    exit;
-}
-//if user is not logged in, redirect to index.php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require 'Database.php';
+
+$db = new Database();
+
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: index.php');
+    echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
+    echo "<a href='index.php'>Wróć</a>";
+    $db->logActivity(null, 'Ktoś próbował wejść na stronę create_event.php bez logowania .');
     exit;
 }
+
 ?>
 
 <?php
-session_start();
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: admin_login.php');
-    exit;
-}
+
 ?>
 <!DOCTYPE html>
 <html>

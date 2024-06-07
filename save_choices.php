@@ -1,17 +1,25 @@
 <?php
 require 'config.php';
-// Reszta kodu
-?>
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require 'Database.php';
 
-<?php
-session_start();
+$db = new Database();
+
+// Sprawdzenie statusu sesji i uruchomienie sesji, jeśli nie jest aktywna
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
+    echo "<a href='index.php'>Wróć</a>";
+    $db->logActivity(null, 'Ktoś próbował wejść na stronę save_choices.php bez logowania .');
     exit;
 }
 
 require 'Database.php';
-$db = new Database();
+
 
 $user_id = $_SESSION['user_id'];
 $choices = $_POST['choices'];

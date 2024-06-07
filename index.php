@@ -1,6 +1,16 @@
 <?php
 require 'config.php';
-// Reszta kodu
+// jeśli użytkownik jest zalogowany jako admin, przekieruj na admin_panel.php
+if (isset($_SESSION['admin_id'])) {
+    header('Location: admin_panel.php');
+    exit;
+}
+// jeśli użytkownik jest zalogowany jako user, przekieruj na user_panel.php
+if (isset($_SESSION['user_id'])) {
+    header('Location: user_panel.php');
+    exit;
+}
+
 ?>
 
 <?php
