@@ -11,7 +11,7 @@ $db = new Database();
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['admin_id'])) {
     echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
     echo "<a href='index.php'>Wróć</a>";
     $db->logActivity(null, 'Ktoś próbował wejść na stronę register_admin.php bez logowania .');
