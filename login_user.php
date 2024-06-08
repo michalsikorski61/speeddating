@@ -26,6 +26,9 @@ if ($user && password_verify($password, $user['password'])) {
     // Logowanie nieudanego logowania
     $db->logFailedLogin($email);
     $error_message = "Niepoprawny email lub hasło. Spróbuj ponownie.";
+    // Logowanie nieudanego logowania
+    $db->logFailedLogin($email);
+    $error_message = "Niepoprawny email lub hasło. Spróbuj ponownie.";
 }
 ?>
 <!DOCTYPE html>
