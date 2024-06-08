@@ -1,6 +1,8 @@
 <?php
 require 'config.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['admin_id']) && !isset($_SESSION['user_id'])) {
     // Przekierowanie na stronę index.php, jeśli nie jest zalogowany
     header('Location: index.php');
@@ -9,9 +11,10 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['user_id'])) {
 ?>
 
 <?php
-require 'Database.php';
+require_once 'Database.php';
 
 $event_id = $_GET['event_id'];
+
 
 $db = new Database();
 $db->query("SELECT * FROM users WHERE event_id = :event_id");

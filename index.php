@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 // jeśli użytkownik jest zalogowany jako admin, przekieruj na admin_panel.php
 if (isset($_SESSION['admin_id'])) {
     header('Location: admin_panel.php');
@@ -14,7 +17,7 @@ if (isset($_SESSION['user_id'])) {
 ?>
 
 <?php
-session_start();
+
 
 
 ?>

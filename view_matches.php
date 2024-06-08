@@ -4,12 +4,15 @@ require 'config.php';
 ?>
 
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['admin_id'])) {
     
         echo("Tutaj cię nie mogę wpuścić. Wróć na stronę główną.");
         echo "<a href='index.php'>Wróć</a>";
         $db->logActivity($db->lastInsertId(), 'Ktoś próbował wejść na stronę view_matches.php bez  logowania.');
+        header('Location: index.php');
         exit;
     
 }

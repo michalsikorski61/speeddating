@@ -1,5 +1,7 @@
 <?php
-session_start(); // Rozpoczęcie sesji
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Usunięcie wszystkich zmiennych sesji
 $_SESSION = array();

@@ -1,11 +1,12 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 session_start();
 // Używamy require_once zamiast require
 require_once 'Database.php';
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $email = trim($_POST['email']);
 $password = trim($_POST['password']);
 

@@ -4,7 +4,9 @@ require 'config.php';
 ?>
 
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 require 'Database.php';
 
 $email = $_POST['email'];

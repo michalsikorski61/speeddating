@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 // przekierowanie do panelu użytkownika, jeśli jest zalogowany
 if (isset($_SESSION['user_id'])) {
     header('Location: user_panel.php');

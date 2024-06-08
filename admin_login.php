@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 // Sprawdzenie, czy użytkownik jest zalogowany jako admin lub user
 if (isset($_SESSION['admin_id'])) {
     // Przekierowanie na stronę index.php, jeśli nie jest zalogowany

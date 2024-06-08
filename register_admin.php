@@ -15,6 +15,7 @@ if (!isset($_SESSION['admin_id'])) {
     echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
     echo "<a href='index.php'>Wróć</a>";
     $db->logActivity(null, 'Ktoś próbował wejść na stronę register_admin.php bez logowania .');
+    header('Location: index.php');
     exit;
 }
 // jeśli jest zalogowany jako użytownik, przekieruj do index.php

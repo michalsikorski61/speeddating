@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
     echo "<a href='index.php'>Wróć</a>";
     $db->logActivity(null, 'Ktoś próbował wejść na stronę save_choices.php bez logowania.');
+    header('Location: index.php');
     exit;
 }
 
