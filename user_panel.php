@@ -50,8 +50,7 @@ $selectedChoices = array_column($choices, 'choice_id');
 <body>
     <div class="container">
         <h1>Panel Użytkownika</h1>
-        <p>Jesteś <?=  $_SESSION['user_id']; ?></p>
-        <p>Twój event_id to: <?= $event_id ?></p>
+        <h2>Wybierz osoby, które chcesz poznać</h2>
         <form action="save_choices.php" method="post">
             <?php foreach ($users as $user): ?>
                 <input type="checkbox" name="choices[]" value="<?php echo $user['id']; ?>" <?php echo in_array($user['id'], $selectedChoices) ? 'checked' : ''; ?>>
