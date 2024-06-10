@@ -21,6 +21,17 @@ if (!isset($_SESSION['admin_id'])) {
 <head>
     <title>Panel Administratora</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            background-color: #333;
+        }
+        form{
+            background-color: #888;
+        }
+        h1{
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="container">

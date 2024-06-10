@@ -11,24 +11,32 @@ $db = new Database();
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
 if (!isset($_SESSION['user_id'])) {
     echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
     echo "<a href='index.php'>Wróć</a>";
-    $db->logActivity(null, 'Ktoś próbował wejść na stronę user_panel.php bez logowania .');
+    $db->logActivity(null, 'Ktoś próbował wejść na stronę user_panel.php bez logowania.');
     header('Location: index.php');
     exit;
 }
 
+$user_id = $_SESSION['user_id'];
 
+// Pobierz event_id zalogowanego użytkownika
+$db->query("SELECT event_id FROM users WHERE id = :user_id");
+$db->bind(':user_id', $user_id);
+$user = $db->single();
+$event_id = $user['event_id'];
 
-// Pobierz wszystkich użytkowników z wyjątkiem zalogowanego użytkownika
-$db->query("SELECT * FROM users WHERE id != :user_id");
-$db->bind(':user_id', $_SESSION['user_id']);
+// Pobierz wszystkich użytkowników z tego samego wydarzenia z wyjątkiem zalogowanego użytkownika
+$db->query("SELECT id, name FROM users WHERE event_id = :event_id AND id != :user_id");
+$db->bind(':event_id', $event_id);
+$db->bind(':user_id', $user_id);
 $users = $db->resultset();
 
 // Pobierz aktualne wybory zalogowanego użytkownika
 $db->query("SELECT choice_id FROM choices WHERE user_id = :user_id");
-$db->bind(':user_id', $_SESSION['user_id']);
+$db->bind(':user_id', $user_id);
 $choices = $db->resultset();
 $selectedChoices = array_column($choices, 'choice_id');
 ?>
@@ -42,6 +50,8 @@ $selectedChoices = array_column($choices, 'choice_id');
 <body>
     <div class="container">
         <h1>Panel Użytkownika</h1>
+        <p>Jesteś <?=  $_SESSION['user_id']; ?></p>
+        <p>Twój event_id to: <?= $event_id ?></p>
         <form action="save_choices.php" method="post">
             <?php foreach ($users as $user): ?>
                 <input type="checkbox" name="choices[]" value="<?php echo $user['id']; ?>" <?php echo in_array($user['id'], $selectedChoices) ? 'checked' : ''; ?>>

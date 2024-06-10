@@ -18,6 +18,7 @@ $user = $db->single();
 
 if ($user && password_verify($password, $user['password'])) {
     $_SESSION['user_id'] = $user['id'];
+    $_SESSION['event_id'] = $user['event_id'];
     // Logowanie operacji logowania
     $db->logActivity($user['id'], 'Logowanie użytkownika');
     header('Location: user_panel.php');

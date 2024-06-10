@@ -22,6 +22,9 @@ if (isset($_SESSION['admin_id'])) {
         form{
             background-color: #888;
         }
+        h1{
+            color: #fff;
+        }
     </style>
 </head>
 <body>
