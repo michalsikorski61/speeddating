@@ -14,6 +14,9 @@ if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit;
 }
+
+//here we will add the admin panel about mails to pared users
+
 ?>
 
 <!DOCTYPE html>
@@ -35,13 +38,9 @@ if (!isset($_SESSION['admin_id'])) {
 </head>
 <body>
     <div class="container">
-        <h1>Panel Administratora</h1>
-        <!-- Linki do różnych funkcji administratora -->
-        <a href="view_matches.php">Podgląd par</a><br>
-        <a href="register_user_admin.php">Rejestracja użytkownika</a><br>
-        <a href="register_admin.php">Rejestracja administratora</a><br>
-        <a href="create_event.php">Stwórz wydarzenie</a><br>
-        <a href="logout.php">Wyloguj</a>
+        <h1>content</h1>
+        
     </div>
+        
 </body>
 </html>
