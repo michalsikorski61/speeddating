@@ -18,27 +18,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
     exit;
 }
-
-
 $name = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
-$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-$event_id = $_POST['event_id'];
 
-
-
-$db->query("INSERT INTO users (name, email, phone, password, event_id) VALUES (:name, :email, :phone, :password, :event_id)");
-$db->bind(':name', $name);
+// Sprawdzanie, czy email już istnieje
+$db->query("SELECT * FROM users WHERE email = :email");
 $db->bind(':email', $email);
-$db->bind(':phone', $phone);
-$db->bind(':password', $password);
-$db->bind(':event_id', $event_id);
+$db->execute();
 
-if ($db->execute()) {
-    echo "Rejestracja zakończona sukcesem!";
-} else {
-    echo "Błąd: " . $db->getError();
+if ($db->rowCount() > 0) {
+    echo "Użytkownik o podanym adresie email już istnieje!";
+    
+}else{
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $event_id = $_POST['event_id'];
+
+
+
+    $db->query("INSERT INTO users (name, email, phone, password, event_id) VALUES (:name, :email, :phone, :password, :event_id)");
+    $db->bind(':name', $name);
+    $db->bind(':email', $email);
+    $db->bind(':phone', $phone);
+    $db->bind(':password', $password);
+    $db->bind(':event_id', $event_id);
+
+    if ($db->execute()) {
+        echo "Rejestracja zakończona sukcesem!";
+    } else {
+        echo "Błąd: " . $db->getError();
+    }
 }
+
+
 ?>
 <a href="admin_panel.php">Wróć</a>
