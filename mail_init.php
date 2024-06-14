@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $matches = $_POST['matches'];
     }
+}else{
+    header('Location: index.php');
 }
 
 // Domyślne wartości
@@ -123,7 +125,7 @@ $defaultSubject = "Wyniki Speed Datingu";
                 </div>
                 <hr>
             <?php endforeach; ?>
-            <button type="submit">Wyślij wszystkie wiadomości</button>
+            <button type="submit" name="mail_init">Wyślij wszystkie wiadomości</button>
         </form>
         
         <a href="admin_panel.php">Wróć</a>
