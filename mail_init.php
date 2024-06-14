@@ -14,11 +14,19 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-// Walidacja i sanityzacja danych z formularza
+// Funkcja walidacji i sanityzacji danych z formularza
 function sanitizeInput($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
+// Sanityzacja danych z $_POST['matches']
+function sanitizeMatches($matches) {
+    $sanitizedMatches = [];
+    foreach ($matches as $match) {
+        $sanitizedMatches[] = sanitizeInput($match);
+    }
+    return $sanitizedMatches;
+}
 
 $errors = [];
 $matches = [];
@@ -26,10 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_POST['matches'])) {
         $errors[] = "Brak wybranych par.";
     } else {
-        $matches = $_POST['matches'];
+        $matches = sanitizeMatches($_POST['matches']);
     }
-}else{
+} else {
     header('Location: index.php');
+    exit;
 }
 
 // Domyślne wartości
