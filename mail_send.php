@@ -52,12 +52,12 @@ if (!isset($_POST['mail_init'])) {
         $mail->Host = 'smtp.gmail.com'; // serwer smtp google
         $mail->SMTPAuth = true;
         $mail->Username = 'speeddatingwarsztatytaneczne@gmail.com'; // nasz adres email
-        $mail->Password = 'ttekcnmxgsmhfrpi'; // hasło do skrzynki email
+        $mail->Password = ''; // hasło do skrzynki email
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // szyfrowanie ssl
         $mail->Port = 465; // port serwera
         
         foreach ($matches as $match) {
-            list($user1_phone, $user1_email, $user2_phone, $user2_email) = explode(',', $match);
+            list($user2_phone, $user2_email,$user1_phone, $user1_email) = explode(',', $match);
             $subject1 = filter_var($_POST['subject_' . str_replace('.','_',str_replace('@','_',$user1_email))],FILTER_SANITIZE_SPECIAL_CHARS);
             $body1 = filter_var($_POST['message_' . str_replace('.','_',str_replace('@','_',$user1_email))],FILTER_SANITIZE_SPECIAL_CHARS);
             $subject2 = filter_var($_POST['subject_' . str_replace('.','_',str_replace('@','_',$user2_email))],FILTER_SANITIZE_SPECIAL_CHARS);
@@ -76,7 +76,7 @@ if (!isset($_POST['mail_init'])) {
             $mail->addAddress($user1_email);
             $mail->isHTML(true);
             $mail->Subject = $subject1;
-            $mail->Body = $body1 . ' ' . $user1_phone . ' ' . $user1_email;
+            $mail->Body = $body2 . ' ' . $user2_phone . ' ' . $user2_email;
             $mail->send();
             $mail->clearAddresses();
 
@@ -86,7 +86,7 @@ if (!isset($_POST['mail_init'])) {
             $mail->addAddress($user2_email);
             $mail->isHTML(true);
             $mail->Subject = $subject2;
-            $mail->Body = $body2 . ' ' . $user2_phone . ' ' . $user2_email;
+            $mail->Body = $body1 . ' ' . $user1_phone . ' ' . $user1_email;
             $mail->send();
             $mail->clearAddresses();
         }

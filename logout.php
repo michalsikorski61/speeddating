@@ -15,6 +15,12 @@ $db = new Database();
 if (isset($_SESSION['user_id'])) {
     // Logowanie operacji wylogowania użytkownika
     $db->logActivity($_SESSION['user_id'], 'Wylogowanie użytkownika');
+    unset($_SESSION['user_id']);
+    unset($_SESSION['event_id']);
+    unset($_SESSION['event_name']);
+    unset($_SESSION['admin_id']);
+
+    
     session_destroy();
     header('Location: index.php');
 } elseif (isset($_SESSION['admin_id'])) {
