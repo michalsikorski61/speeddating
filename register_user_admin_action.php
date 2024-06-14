@@ -18,9 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
     exit;
 }
-$name = $_POST['name'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
+//sanitize input data
+$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+$phone = filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT);
 
 // Sprawdzanie, czy email już istnieje
 $db->query("SELECT * FROM users WHERE email = :email");
