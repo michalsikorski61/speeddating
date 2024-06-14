@@ -19,6 +19,7 @@ function sanitizeInput($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
+
 $errors = [];
 $matches = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -103,8 +104,8 @@ $defaultSubject = "Wyniki Speed Datingu";
                     <label for="subject_<?php echo str_replace('@','_',$user1_email); ?>">Temat:</label>
                     <input type="text" id="subject_<?php echo $user1_email; ?>" name="subject_<?php echo str_replace('@','_',$user1_email); ?>" value="<?php echo htmlspecialchars($defaultSubject, ENT_QUOTES, 'UTF-8'); ?>" required>
                     <br>
-                    <label for="message_<?php echo str_replace('@','_',$user1_email); ?>">Treść wiadomości:</label>
-                    <textarea id="message_<?php echo $user1_email; ?>" name="message_<?php echo str_replace('@','_',$user1_email); ?>" required><?php echo htmlspecialchars($defaultMessage, ENT_QUOTES, 'UTF-8'); ?></textarea>
+                    <label for="message_<?php echo str_replace('@','_',$user1_email); ?>">Treść wiadomości:</label><br>
+                    <textarea id="message_<?php echo $user1_email; ?>" name="message_<?php echo str_replace('@','_',$user1_email); ?>" required cols="60" rows="20"><?php echo htmlspecialchars($defaultMessage, ENT_QUOTES, 'UTF-8'); ?></textarea>
                     <br>
                     
                     <h4>Email do: <?php echo htmlspecialchars($user2_email, ENT_QUOTES, 'UTF-8'); ?></h4>
@@ -119,8 +120,8 @@ $defaultSubject = "Wyniki Speed Datingu";
                     <label for="subject_<?php echo str_replace('@','_',$user2_email); ?>">Temat:</label>
                     <input type="text" id="subject_<?php echo $user2_email; ?>" name="subject_<?php echo str_replace('@','_',$user2_email); ?>" value="<?php echo htmlspecialchars($defaultSubject, ENT_QUOTES, 'UTF-8'); ?>" required>
                     <br>
-                    <label for="message_<?php echo str_replace('@','_',$user2_email); ?>">Treść wiadomości:</label>
-                    <textarea id="message_<?php echo $user2_email; ?>" name="message_<?php echo str_replace('@','_',$user2_email); ?>" required><?php echo htmlspecialchars($defaultMessage, ENT_QUOTES, 'UTF-8'); ?></textarea>
+                    <label for="message_<?php echo str_replace('@','_',$user2_email); ?>">Treść wiadomości:</label><br>
+                    <textarea id="message_<?php echo $user2_email; ?>" name="message_<?php echo str_replace('@','_',$user2_email); ?>" required cols="60" rows="20"><?php echo htmlspecialchars($defaultMessage, ENT_QUOTES, 'UTF-8'); ?></textarea>
                     <br>
                 </div>
                 <hr>

@@ -16,6 +16,7 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 $db = new Database();
+// sanityzacja danych wejściowych czy $_POST['event_id'] jest liczbą
 
 // Pobierz listę wydarzeń
 $db->query("SELECT id, name FROM events");

@@ -25,6 +25,8 @@ if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit;
 }
+// var_dump($_POST);
+
 //jeśli przesłano dane metodą post i zawiera klucz mail_init
 if (!isset($_POST['mail_init'])) {
     echo "Nieprawidłowe dane przekierowania.";
@@ -38,16 +40,12 @@ if (!isset($_POST['mail_init'])) {
     // echo '</pre>';
     // echo '<hr>';
     //sanityzacja danych wejściowych z całej tablicy post
-    $subject1 = filter_var($_POST['subject_' . str_replace('.','_',str_replace('@','_',$user1_email))],FILTER_SANITIZE_SPECIAL_CHARS);
-    $body1 = filter_var($_POST['message_' . str_replace('.','_',str_replace('@','_',$user1_email))],FILTER_SANITIZE_SPECIAL_CHARS);
-    $subject2 = filter_var($_POST['subject_' . str_replace('.','_',str_replace('@','_',$user2_email))],FILTER_SANITIZE_SPECIAL_CHARS);
-    $body2 = filter_var($_POST['message_' . str_replace('.','_',str_replace('@','_',$user2_email))],FILTER_SANITIZE_SPECIAL_CHARS);
     // echo "Po sanityzacji";
     // echo '<pre>';
-
+    
     // echo '</pre>';
     // echo '<hr>';
-
+    
     try {
         // Konfiguracja serwera SMTP
         $mail->isSMTP();
@@ -57,9 +55,13 @@ if (!isset($_POST['mail_init'])) {
         $mail->Password = 'ttekcnmxgsmhfrpi'; // hasło do skrzynki email
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // szyfrowanie ssl
         $mail->Port = 465; // port serwera
-
+        
         foreach ($matches as $match) {
             list($user1_phone, $user1_email, $user2_phone, $user2_email) = explode(',', $match);
+            $subject1 = filter_var($_POST['subject_' . str_replace('.','_',str_replace('@','_',$user1_email))],FILTER_SANITIZE_SPECIAL_CHARS);
+            $body1 = filter_var($_POST['message_' . str_replace('.','_',str_replace('@','_',$user1_email))],FILTER_SANITIZE_SPECIAL_CHARS);
+            $subject2 = filter_var($_POST['subject_' . str_replace('.','_',str_replace('@','_',$user2_email))],FILTER_SANITIZE_SPECIAL_CHARS);
+            $body2 = filter_var($_POST['message_' . str_replace('.','_',str_replace('@','_',$user2_email))],FILTER_SANITIZE_SPECIAL_CHARS);
             $user1_phone = filter_var($user1_phone, FILTER_SANITIZE_NUMBER_INT);
             $user2_phone = filter_var($user2_phone, FILTER_SANITIZE_NUMBER_INT);
             $user1_email = filter_var($user1_email, FILTER_SANITIZE_EMAIL);
@@ -75,7 +77,7 @@ if (!isset($_POST['mail_init'])) {
             $mail->isHTML(true);
             $mail->Subject = $subject1;
             $mail->Body = $body1 . ' ' . $user1_phone . ' ' . $user1_email;
-            // $mail->send();
+            $mail->send();
             $mail->clearAddresses();
 
             // Wysyłanie e-maila do user2
@@ -85,7 +87,7 @@ if (!isset($_POST['mail_init'])) {
             $mail->isHTML(true);
             $mail->Subject = $subject2;
             $mail->Body = $body2 . ' ' . $user2_phone . ' ' . $user2_email;
-            // $mail->send();
+            $mail->send();
             $mail->clearAddresses();
         }
 
@@ -94,4 +96,6 @@ if (!isset($_POST['mail_init'])) {
         echo "Wiadomości nie mogły zostać wysłane. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+//powrót do admn_panel.php
+echo '<a href="admin_panel.php">Wróć</a>';
 ?>
