@@ -9,13 +9,13 @@ $db = new Database();
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (!isset($_SESSION['user_id'])) {
-    echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
-    echo "<a href='index.php'>Wróć</a>";
-    $db->logActivity(null, 'Ktoś próbował wejść na stronę user_panel.php bez logowania .');
-    header('Location: index.php');
-    exit;
-}
+// if (!isset($_SESSION['user_id'])) {
+//     echo "Tutaj cię nie mogę wpuścić. Działanie zostało zgłoszone. Wróć na stronę główną.";
+//     echo "<a href='index.php'>Wróć</a>";
+//     $db->logActivity(null, 'Ktoś próbował wejść na stronę user_panel.php bez logowania .');
+//     header('Location: index.php');
+//     exit;
+// }
 
 
 ?>
@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $check_filter['password']['options']['regexp'] = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
 
     $usr = filter_input_array(INPUT_POST, $check_filter);
-    
+    // var_dump($usr);
     // Walidacja danych wejściowych
     if (empty($name) || empty($email) || empty($phone) || empty($_POST['password']) || empty($event_id)) {
         die("Wszystkie pola są wymagane.");

@@ -18,10 +18,21 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
     exit;
 }
+
+echo "<hr>";
 //sanitize input data
-$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+$name = $_POST['name'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+//sanitize name with regexp
+$name = preg_replace('/[^a-zA-Z\s]/', '', $name);
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $phone = filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT);
+// if any filter_var returns false, exit
+if ( !$email || !$phone || ($name != $_POST['name'])) {
+    echo "Błąd: Nieprawidłowe dane wejściowe!";
+    exit;
+}
 
 // Sprawdzanie, czy email już istnieje
 $db->query("SELECT * FROM users WHERE email = :email");
@@ -32,8 +43,10 @@ if ($db->rowCount() > 0) {
     echo "Użytkownik o podanym adresie email już istnieje!";
     
 }else{
+    //password sanitize
+    
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $event_id = $_POST['event_id'];
+    $event_id = filter_var($_POST['event_id'], FILTER_SANITIZE_NUMBER_INT);
 
 
 
