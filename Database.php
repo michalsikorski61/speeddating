@@ -106,5 +106,9 @@ class Database {
             echo 'Nieudane logowanie zalogowane pomyślnie.';
         }
     }
+
+    public function getPdo() {
+        return $this->pdo;
+    }
 }
 ?>
